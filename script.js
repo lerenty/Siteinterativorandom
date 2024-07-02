@@ -4,18 +4,31 @@ document.addEventListener('DOMContentLoaded', function() {
     const info = document.getElementById('info');
     const wordRoulette = document.getElementById('word-roulette');
     const spinAgainButton = document.getElementById('spin-again');
+    const backButton = document.createElement('button');
+    
+    backButton.textContent = 'Voltar';
+    backButton.classList.add('back-button');
+    backButton.style.position = 'absolute';
+    backButton.style.top = '10px';
+    backButton.style.left = '10px';
+    backButton.style.display = 'none';
+    document.body.appendChild(backButton);
+
+    backButton.addEventListener('click', function() {
+        content.classList.add('hidden');
+        buttons.forEach(btn => btn.classList.remove('hidden'));
+        backButton.style.display = 'none';
+    });
 
     buttons.forEach(button => {
         button.addEventListener('click', function() {
-            // Mostrar conteúdo relevante
             content.classList.remove('hidden');
             buttons.forEach(btn => btn.classList.add('hidden'));
-            
-            // Definir o texto de acordo com o botão clicado
+
             info.textContent = `${button.textContent} é...`;
 
-            // Função para simular roleta de palavras
-            const words = ['Gay!!', 'Boiola!!', 'Sentador profissional dos cria!', 'Macho alpha.', 'Cria de BH', 'Sigma da Bahia!!!!']; // Substitua com suas palavras desejadas
+            // Simulação da roleta de palavras
+            const words = ['Gay!', 'Macho alpha.', 'Sigma da Bahia!!', 'Chupador de rolas pretas.', 'Piranha danada!', 'Hetero.', 'Ratazana de esgoto.', 'Encosto.', 'Lambe-Pika.']; // Substitua com suas palavras desejadas
             let currentIndex = 0;
             let intervalId;
 
@@ -23,29 +36,22 @@ document.addEventListener('DOMContentLoaded', function() {
                 intervalId = setInterval(function() {
                     wordRoulette.textContent = words[currentIndex];
                     currentIndex = (currentIndex + 1) % words.length;
-                }, 100); // Ajuste a velocidade da roleta aqui (em milissegundos)
+                }, 100); // Velocidade da roleta em milissegundos
             }
 
             startWordRoulette();
 
-            // Evento para parar a roleta
-            spinAgainButton.addEventListener('click', function() {
+            // Parar a roleta depois de 5 segundos
+            setTimeout(function() {
                 clearInterval(intervalId);
-                // Exibir a palavra final da roleta
                 wordRoulette.textContent = words[currentIndex];
-                // Opcional: Poderia adicionar lógica para repetir ou outra ação após a escolha
+                spinAgainButton.style.display = 'block'; // Mostrar o botão "Girar novamente"
+            }, 5000);
 
-                // Mostrar botão "Voltar"
-                const backButton = document.createElement('button');
-                backButton.textContent = 'Voltar';
-                backButton.classList.add('back-button');
-                backButton.addEventListener('click', function() {
-                    content.classList.add('hidden');
-                    buttons.forEach(btn => btn.classList.remove('hidden'));
-                    backButton.remove(); // Remover o botão "Voltar"
-                });
-
-                document.body.insertBefore(backButton, document.body.firstChild);
+            spinAgainButton.addEventListener('click', function() {
+                currentIndex = 0; // Reiniciar o índice para a roleta
+                startWordRoulette();
+                spinAgainButton.style.display = 'none'; // Esconder o botão "Girar novamente"
             });
         });
     });
