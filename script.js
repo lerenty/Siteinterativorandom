@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
             info.textContent = `${button.textContent} é...`;
 
             // Função para simular roleta de palavras
-            const words = ['palavra1', 'palavra2', 'palavra3', 'palavra4']; // Substitua com suas palavras desejadas
+            const words = ['Gay!!', 'Boiola!!', 'Sentador profissional dos cria!', 'Macho alpha.', 'Cria de BH', 'Sigma da Bahia!!!!']; // Substitua com suas palavras desejadas
             let currentIndex = 0;
             let intervalId;
 
